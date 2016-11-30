@@ -1,6 +1,6 @@
 frostwire-jlibtorrent
 =====================
-My custom
+My custom [![Build Status](https://travis-ci.org/alex-druzhinin/frostwire-jlibtorrent.svg?branch=master)](https://travis-ci.org/alex-druzhinin/frostwire-jlibtorrent)
 
 A swig Java interface for libtorrent by the makers of FrostWire.
 
@@ -87,10 +87,6 @@ $ git checkout master
 - When finished, check your s3 bucket for the binaries.
 - To trigger a new build, just make a change or merge new changes from
  the stable branch, commit and push.
-
-**Contributions are rewarded instantly with our Bitcoin donations fund**
-
-[![tip for next commit](https://tip4commit.com/projects/983.svg)](https://tip4commit.com/github/frostwire/frostwire-jlibtorrent)
 
 License
 ========
