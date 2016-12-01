@@ -21,10 +21,10 @@ rule libtorrent_linking ( properties * )
 {
     local result ;
 
-    result += <deprecated-functions>off ;
-    result += <logging>off ;
-    result += <crypto>libcrypto ;
-    result += <ssl>off ;
+    result += <deprecated-functions>on ;
+    result += <logging>on ;
+    result += <crypto>openssl ;
+    result += <ipv6>off ;
     result += <rtti>off ;
 
     if <target-os>android in $(properties)
