@@ -28,6 +28,7 @@ matrix:
 branches:
   only:
     - travis-build
+    - libtorrent-RC_1_1
 
 cache:
   directories:
