@@ -194,6 +194,9 @@ script:
 
   - cd $OPENSSL_SOURCE
   - $run_openssl_configure
+  - if [[ $os_build == "windows" || $os_build == "macosx" ]]; then
+      make depend &> /dev/null ;
+    fi  
   - echo "Compiling openssl...(remove &> /dev/null to see output)"
   - make &> /dev/null
   - make install &> /dev/null
