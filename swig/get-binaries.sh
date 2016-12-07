@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-rm -rf bin
-mkdir bin
+#rm -rf bin
+#mkdir bin
 
 # android
 wget -P bin/release/android/armeabi-v7a https://s3.amazonaws.com/jlibtorrentdav/release/android/armeabi-v7a/libjlibtorrent.so
