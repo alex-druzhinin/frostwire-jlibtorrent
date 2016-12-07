@@ -23,7 +23,8 @@ rule libtorrent_linking ( properties * )
 
     result += <deprecated-functions>on ;
     result += <logging>on ;
-    result += <crypto>openssl ;
+    result += <crypto>libcrypto ;
+    result += <ssl>off ;
     result += <ipv6>off ;
     result += <rtti>off ;
 
