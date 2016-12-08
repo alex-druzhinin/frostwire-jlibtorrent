@@ -3,6 +3,7 @@
 #mkdir bin
 
 
+
 # android
 wget -P bin/release/android/armeabi-v7a https://s3.amazonaws.com/jlibtorrentdav/release/android/armeabi-v7a/libjlibtorrent.so
 wget -P bin/release/android/arm64-v8a https://s3.amazonaws.com/jlibtorrentdav/release/android/arm64-v8a/libjlibtorrent.so
