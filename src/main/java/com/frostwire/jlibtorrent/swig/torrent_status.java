@@ -73,6 +73,26 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_error_file_get(swigCPtr, this);
   }
 
+  public static int getError_file_none() {
+    return libtorrent_jni.torrent_status_error_file_none_get();
+  }
+
+  public static int getError_file_url() {
+    return libtorrent_jni.torrent_status_error_file_url_get();
+  }
+
+  public static int getError_file_ssl_ctx() {
+    return libtorrent_jni.torrent_status_error_file_ssl_ctx_get();
+  }
+
+  public static int getError_file_metadata() {
+    return libtorrent_jni.torrent_status_error_file_metadata_get();
+  }
+
+  public static int getError_file_exception() {
+    return libtorrent_jni.torrent_status_error_file_exception_get();
+  }
+
   public void setSave_path(String value) {
     libtorrent_jni.torrent_status_save_path_set(swigCPtr, this, value);
   }
@@ -145,22 +165,22 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_total_redundant_bytes_get(swigCPtr, this);
   }
 
-  public void setPieces(bitfield value) {
-    libtorrent_jni.torrent_status_pieces_set(swigCPtr, this, bitfield.getCPtr(value), value);
+  public void setPieces(piece_index_bitfield value) {
+    libtorrent_jni.torrent_status_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public bitfield getPieces() {
+  public piece_index_bitfield getPieces() {
     long cPtr = libtorrent_jni.torrent_status_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bitfield(cPtr, false);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
-  public void setVerified_pieces(bitfield value) {
-    libtorrent_jni.torrent_status_verified_pieces_set(swigCPtr, this, bitfield.getCPtr(value), value);
+  public void setVerified_pieces(piece_index_bitfield value) {
+    libtorrent_jni.torrent_status_verified_pieces_set(swigCPtr, this, piece_index_bitfield.getCPtr(value), value);
   }
 
-  public bitfield getVerified_pieces() {
+  public piece_index_bitfield getVerified_pieces() {
     long cPtr = libtorrent_jni.torrent_status_verified_pieces_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new bitfield(cPtr, false);
+    return (cPtr == 0) ? null : new piece_index_bitfield(cPtr, false);
   }
 
   public void setTotal_done(long value) {
@@ -203,27 +223,27 @@ public class torrent_status {
     return libtorrent_jni.torrent_status_all_time_download_get(swigCPtr, this);
   }
 
-  public void setAdded_time(int value) {
+  public void setAdded_time(long value) {
     libtorrent_jni.torrent_status_added_time_set(swigCPtr, this, value);
   }
 
-  public int getAdded_time() {
+  public long getAdded_time() {
     return libtorrent_jni.torrent_status_added_time_get(swigCPtr, this);
   }
 
-  public void setCompleted_time(int value) {
+  public void setCompleted_time(long value) {
     libtorrent_jni.torrent_status_completed_time_set(swigCPtr, this, value);
   }
 
-  public int getCompleted_time() {
+  public long getCompleted_time() {
     return libtorrent_jni.torrent_status_completed_time_get(swigCPtr, this);
   }
 
-  public void setLast_seen_complete(int value) {
+  public void setLast_seen_complete(long value) {
     libtorrent_jni.torrent_status_last_seen_complete_set(swigCPtr, this, value);
   }
 
-  public int getLast_seen_complete() {
+  public long getLast_seen_complete() {
     return libtorrent_jni.torrent_status_last_seen_complete_get(swigCPtr, this);
   }
 
@@ -677,53 +697,6 @@ public class torrent_status {
     }
 
     private static state_t[] swigValues = { checking_files, downloading_metadata, downloading, finished, seeding, allocating, checking_resume_data };
-    private static int swigNext = 0;
-    private final int swigValue;
-    private final String swigName;
-  }
-
-  public final static class error_file_t {
-    public final static torrent_status.error_file_t error_file_none = new torrent_status.error_file_t("error_file_none", libtorrent_jni.torrent_status_error_file_none_get());
-    public final static torrent_status.error_file_t error_file_url = new torrent_status.error_file_t("error_file_url", libtorrent_jni.torrent_status_error_file_url_get());
-    public final static torrent_status.error_file_t error_file_ssl_ctx = new torrent_status.error_file_t("error_file_ssl_ctx", libtorrent_jni.torrent_status_error_file_ssl_ctx_get());
-    public final static torrent_status.error_file_t error_file_metadata = new torrent_status.error_file_t("error_file_metadata", libtorrent_jni.torrent_status_error_file_metadata_get());
-    public final static torrent_status.error_file_t error_file_exception = new torrent_status.error_file_t("error_file_exception", libtorrent_jni.torrent_status_error_file_exception_get());
-
-    public final int swigValue() {
-      return swigValue;
-    }
-
-    public String toString() {
-      return swigName;
-    }
-
-    public static error_file_t swigToEnum(int swigValue) {
-      if (swigValue < swigValues.length && swigValue >= 0 && swigValues[swigValue].swigValue == swigValue)
-        return swigValues[swigValue];
-      for (int i = 0; i < swigValues.length; i++)
-        if (swigValues[i].swigValue == swigValue)
-          return swigValues[i];
-      throw new IllegalArgumentException("No enum " + error_file_t.class + " with value " + swigValue);
-    }
-
-    private error_file_t(String swigName) {
-      this.swigName = swigName;
-      this.swigValue = swigNext++;
-    }
-
-    private error_file_t(String swigName, int swigValue) {
-      this.swigName = swigName;
-      this.swigValue = swigValue;
-      swigNext = swigValue+1;
-    }
-
-    private error_file_t(String swigName, error_file_t swigEnum) {
-      this.swigName = swigName;
-      this.swigValue = swigEnum.swigValue;
-      swigNext = this.swigValue+1;
-    }
-
-    private static error_file_t[] swigValues = { error_file_none, error_file_url, error_file_ssl_ctx, error_file_metadata, error_file_exception };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

@@ -71,20 +71,16 @@ public class file_storage {
     libtorrent_jni.file_storage_add_file_borrow__SWIG_4(swigCPtr, this, filename, filename_len, path, file_size);
   }
 
-  public void add_file(String path, long file_size, int file_flags, int mtime, string_view symlink_path) {
-    libtorrent_jni.file_storage_add_file__SWIG_0(swigCPtr, this, path, file_size, file_flags, mtime, string_view.getCPtr(symlink_path), symlink_path);
-  }
-
-  public void add_file(String path, long file_size, int file_flags, int mtime) {
-    libtorrent_jni.file_storage_add_file__SWIG_1(swigCPtr, this, path, file_size, file_flags, mtime);
+  public void add_file(String path, long file_size, int file_flags, long mtime) {
+    libtorrent_jni.file_storage_add_file__SWIG_0(swigCPtr, this, path, file_size, file_flags, mtime);
   }
 
   public void add_file(String path, long file_size, int file_flags) {
-    libtorrent_jni.file_storage_add_file__SWIG_2(swigCPtr, this, path, file_size, file_flags);
+    libtorrent_jni.file_storage_add_file__SWIG_1(swigCPtr, this, path, file_size, file_flags);
   }
 
   public void add_file(String path, long file_size) {
-    libtorrent_jni.file_storage_add_file__SWIG_3(swigCPtr, this, path, file_size);
+    libtorrent_jni.file_storage_add_file__SWIG_2(swigCPtr, this, path, file_size);
   }
 
   public void rename_file(int index, String new_filename) {
@@ -103,6 +99,14 @@ public class file_storage {
     return libtorrent_jni.file_storage_num_files(swigCPtr, this);
   }
 
+  public int end_file() {
+    return libtorrent_jni.file_storage_end_file(swigCPtr, this);
+  }
+
+  public int last_file() {
+    return libtorrent_jni.file_storage_last_file(swigCPtr, this);
+  }
+
   public long total_size() {
     return libtorrent_jni.file_storage_total_size(swigCPtr, this);
   }
@@ -113,6 +117,14 @@ public class file_storage {
 
   public int num_pieces() {
     return libtorrent_jni.file_storage_num_pieces(swigCPtr, this);
+  }
+
+  public int end_piece() {
+    return libtorrent_jni.file_storage_end_piece(swigCPtr, this);
+  }
+
+  public int last_piece() {
+    return libtorrent_jni.file_storage_last_piece(swigCPtr, this);
   }
 
   public void set_piece_length(int l) {
@@ -171,7 +183,7 @@ public class file_storage {
     return libtorrent_jni.file_storage_symlink(swigCPtr, this, index);
   }
 
-  public int mtime(int index) {
+  public long mtime(int index) {
     return libtorrent_jni.file_storage_mtime(swigCPtr, this, index);
   }
 
@@ -213,6 +225,10 @@ public class file_storage {
 
   public int file_index_at_offset(long offset) {
     return libtorrent_jni.file_storage_file_index_at_offset(swigCPtr, this, offset);
+  }
+
+  public void add_file(String path, long file_size, int file_flags, long mtime, String symlink_path) {
+    libtorrent_jni.file_storage_add_file__SWIG_3(swigCPtr, this, path, file_size, file_flags, mtime, symlink_path);
   }
 
   public final static class flags_t {

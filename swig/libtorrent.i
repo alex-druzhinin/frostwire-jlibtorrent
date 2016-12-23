@@ -16,7 +16,6 @@
 
 #include "libtorrent/version.hpp"
 #include "libtorrent/error_code.hpp"
-#include "libtorrent/bitfield.hpp"
 #include "libtorrent/peer_request.hpp"
 #include "libtorrent/file_storage.hpp"
 #include "libtorrent/bdecode.hpp"
@@ -46,6 +45,9 @@
 #include "libtorrent/fingerprint.hpp"
 
 #include "libtorrent.h"
+
+using piece_index_t = libtorrent::piece_index_t;
+using file_index_t = libtorrent::file_index_t;
 
 // END common set include ------------------------------------------------------
 %}
@@ -117,6 +119,36 @@ SWIGEXPORT jlong JNICALL Java_com_frostwire_jlibtorrent_swig_libtorrent_1jni_dir
 }
 #endif
 %}
+
+%typemap(jni) piece_index_t, const piece_index_t& "int"
+%typemap(jtype) piece_index_t, const piece_index_t& "int"
+%typemap(jstype) piece_index_t, const piece_index_t& "int"
+
+%typemap(in) piece_index_t {
+    $1 = piece_index_t($input);
+}
+%typemap(out) piece_index_t {
+    $result = static_cast<int>($1);
+}
+%typemap(javain) piece_index_t, const piece_index_t& "$javainput"
+%typemap(javaout) piece_index_t, const piece_index_t& {
+    return $jnicall;
+  }
+
+%typemap(jni) file_index_t, const file_index_t& "int"
+%typemap(jtype) file_index_t, const file_index_t& "int"
+%typemap(jstype) file_index_t, const file_index_t& "int"
+
+%typemap(in) file_index_t {
+    $1 = file_index_t($input);
+}
+%typemap(out) file_index_t {
+    $result = static_cast<int>($1);
+}
+%typemap(javain) file_index_t, const file_index_t& "$javainput"
+%typemap(javaout) file_index_t, const file_index_t& {
+    return $jnicall;
+  }
 
 #endif // SWIGJAVA
 
@@ -241,7 +273,7 @@ namespace std {
         }
     };
 
-    %template(int_int_pair) pair<int, int>;
+    %template(piece_index_int_pair) pair<piece_index_t, int>;
     %template(string_int_pair) pair<std::string, int>;
     %template(string_string_pair) pair<std::string, std::string>;
     %template(string_view_bdecode_node_pair) pair<libtorrent::string_view, libtorrent::bdecode_node>;
@@ -251,7 +283,7 @@ namespace std {
     %template(string_vector) vector<std::string>;
     %template(string_int_pair_vector) vector<std::pair<std::string, int>>;
     %template(string_string_pair_vector) vector<std::pair<std::string, std::string>>;
-    %template(int_int_pair_vector) vector<std::pair<int, int>>;
+    %template(piece_index_int_pair_vector) vector<std::pair<piece_index_t, int>>;
 
     %template(int_vector) vector<int>;
     %template(int64_vector) vector<long long>;
@@ -272,11 +304,12 @@ namespace std {
     %template(announce_entry_vector) vector<libtorrent::announce_entry>;
     %template(tcp_endpoint_vector) vector<libtorrent::tcp::endpoint>;
     %template(udp_endpoint_vector) vector<libtorrent::udp::endpoint>;
+    %template(piece_index_vector) vector<piece_index_t>;
+    %template(file_index_vector) vector<file_index_t>;
 
-    %template(int_string_map) map<int, std::string>;
+    %template(file_index_string_map) map<file_index_t, std::string>;
     %template(string_long_map) map<std::string, long>;
     %template(string_entry_map) map<std::string, libtorrent::entry>;
-    %template(int_bitfield_map) map<int, libtorrent::bitfield>;
 
     %template(alert_ptr_vector) vector<libtorrent::alert*>;
 };
@@ -464,7 +497,6 @@ namespace libtorrent {
 
     class string_view {
     public:
-        string_view(std::string s);
         std::string to_string();
     };
 
@@ -615,9 +647,37 @@ namespace libtorrent {
             }
         }
     };
+
+    template <typename IndexType>
+    struct typed_bitfield {
+	    typed_bitfield();
+        explicit typed_bitfield(int bits);
+        typed_bitfield(int bits, bool val);
+        typed_bitfield(typed_bitfield<IndexType> const& rhs);
+
+        bool get_bit(IndexType const index) const;
+        void clear_bit(IndexType const index);
+        void set_bit(IndexType const index);
+        IndexType end_index() const;
+
+        bool all_set() const;
+        bool none_set() const;
+        int size() const;
+        int num_words() const;
+        bool empty() const;
+        int count() const;
+        int find_first_set() const;
+        int find_last_clear() const;
+        void resize(int bits, bool val);
+        void resize(int bits);
+        void set_all();
+        void clear_all();
+        void clear();
+	};
+    %template(piece_index_bitfield) typed_bitfield<piece_index_t>;
 };
 
-typedef long time_t;
+typedef std::int64_t time_t;
 
 %ignore libtorrent::TORRENT_CFG;
 %ignore libtorrent::detail;
@@ -625,7 +685,7 @@ typedef long time_t;
 %ignore libtorrent::parse_int;
 %ignore libtorrent::bdecode;
 %ignore libtorrent::get_bdecode_category;
-%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(int)> const&, error_code&);
+%ignore libtorrent::set_piece_hashes(create_torrent&, std::string const&, std::function<void(piece_index_t)> const&, error_code&);
 %ignore libtorrent::hash_value;
 %ignore libtorrent::internal_file_entry;
 %ignore libtorrent::print_entry;
@@ -643,6 +703,7 @@ typedef long time_t;
 %ignore libtorrent::add_torrent_params::storage;
 %ignore libtorrent::add_torrent_params::userdata;
 %ignore libtorrent::add_torrent_params::ti;
+%ignore libtorrent::add_torrent_params::unfinished_pieces;
 %ignore libtorrent::add_torrent_params::deprecated1;
 %ignore libtorrent::add_torrent_params::deprecated2;
 %ignore libtorrent::add_torrent_params::deprecated3;
@@ -806,18 +867,18 @@ typedef long time_t;
 %ignore libtorrent::file_storage::file_name_ptr;
 %ignore libtorrent::file_storage::file_name_len;
 %ignore libtorrent::file_storage::apply_pointer_offset;
-%ignore libtorrent::bitfield::bitfield(bitfield const&);
-%ignore libtorrent::bitfield::data();
-%ignore libtorrent::bitfield::const_iterator;
-%ignore libtorrent::bitfield::begin;
-%ignore libtorrent::bitfield::end;
-%ignore libtorrent::bitfield::swap;
+%ignore libtorrent::file_storage::add_file(std::string const&, std::int64_t, int, std::time_t, string_view);
 %ignore libtorrent::peer_info::last_request;
 %ignore libtorrent::peer_info::last_active;
 %ignore libtorrent::peer_info::download_queue_time;
 %ignore libtorrent::peer_info::deprecated__;
 %ignore libtorrent::peer_info::deprecated_remote_dl_rate;
 %ignore libtorrent::peer_list_entry;
+%ignore libtorrent::create_torrent::add_url_seed(string_view);
+%ignore libtorrent::create_torrent::add_http_seed(string_view);
+%ignore libtorrent::create_torrent::add_tracker(string_view);
+%ignore libtorrent::create_torrent::add_tracker(string_view, int);
+%ignore libtorrent::create_torrent::add_collection(string_view);
 %ignore libtorrent::create_torrent::set_root_cert;
 %ignore libtorrent::stats_metric::name;
 %ignore libtorrent::storage_moved_failed_alert::operation;
@@ -915,7 +976,6 @@ typedef long time_t;
 
 %include "libtorrent/version.hpp"
 %include "libtorrent/error_code.hpp"
-%include "libtorrent/bitfield.hpp"
 %include "libtorrent/peer_request.hpp"
 %include "libtorrent/file_storage.hpp"
 %include "libtorrent/bdecode.hpp"
@@ -1152,11 +1212,21 @@ namespace libtorrent {
 %extend torrent_handle {
 
     void add_piece_bytes(int piece, std::vector<int8_t> const& data, int flags = 0) {
-        $self->add_piece(piece, (char const*)&data[0], flags);
+        $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
     }
 
     libtorrent::torrent_info const* torrent_file_ptr() {
         return $self->torrent_file().get();
+    }
+
+    std::vector<std::string> get_url_seeds() const {
+        std::set<std::string> s = $self->url_seeds();
+        return {s.begin(), s.end()};
+    }
+
+    std::vector<std::string> get_http_seeds() const {
+        std::set<std::string> s = $self->http_seeds();
+        return {s.begin(), s.end()};
     }
 }
 
@@ -1328,6 +1398,33 @@ namespace libtorrent {
 
     int64_t get_userdata() {
         return (int64_t)$self->userdata;
+    }
+}
+
+%extend create_torrent {
+
+    void add_url_seed(std::string const& url) {
+        $self->add_url_seed(url);
+    }
+
+    void add_http_seed(std::string const& url) {
+        $self->add_http_seed(url);
+    }
+
+    void add_tracker(std::string const& url, int tier) {
+        $self->add_tracker(url, tier);
+    }
+
+    void add_collection(std::string const& c) {
+        $self->add_collection(c);
+    }
+}
+
+%extend file_storage {
+
+    void add_file(std::string const& path, std::int64_t file_size,
+        int file_flags, std::time_t mtime, std::string const& symlink_path) {
+        $self->add_file(path, file_size, file_flags, mtime, symlink_path);
     }
 }
 

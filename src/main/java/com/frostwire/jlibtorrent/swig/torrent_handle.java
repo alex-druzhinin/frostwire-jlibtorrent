@@ -207,8 +207,8 @@ public class torrent_handle {
     libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_0(swigCPtr, this, int_vector.getCPtr(pieces), pieces);
   }
 
-  public void prioritize_pieces(int_int_pair_vector pieces) {
-    libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_1(swigCPtr, this, int_int_pair_vector.getCPtr(pieces), pieces);
+  public void prioritize_pieces(piece_index_int_pair_vector pieces) {
+    libtorrent_jni.torrent_handle_prioritize_pieces__SWIG_1(swigCPtr, this, piece_index_int_pair_vector.getCPtr(pieces), pieces);
   }
 
   public int_vector piece_priorities() {
@@ -350,6 +350,14 @@ public class torrent_handle {
   public torrent_info torrent_file_ptr() {
     long cPtr = libtorrent_jni.torrent_handle_torrent_file_ptr(swigCPtr, this);
     return (cPtr == 0) ? null : new torrent_info(cPtr, false);
+  }
+
+  public string_vector get_url_seeds() {
+    return new string_vector(libtorrent_jni.torrent_handle_get_url_seeds(swigCPtr, this), true);
+  }
+
+  public string_vector get_http_seeds() {
+    return new string_vector(libtorrent_jni.torrent_handle_get_http_seeds(swigCPtr, this), true);
   }
 
   public final static class flags_t {

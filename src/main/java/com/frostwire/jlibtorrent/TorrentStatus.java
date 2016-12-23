@@ -152,8 +152,8 @@ public final class TorrentStatus {
      *
      * @return the bitfield of pieces
      */
-    public Bitfield pieces() {
-        return new Bitfield(ts.getPieces(), ts);
+    public PieceIndexBitfield pieces() {
+        return new PieceIndexBitfield(ts.getPieces(), ts);
     }
 
     /**
@@ -163,8 +163,8 @@ public final class TorrentStatus {
      *
      * @return the bitfield of verified pieces
      */
-    public Bitfield verifiedPieces() {
-        return new Bitfield(ts.getVerified_pieces(), ts);
+    public PieceIndexBitfield verifiedPieces() {
+        return new PieceIndexBitfield(ts.getVerified_pieces(), ts);
     }
 
     /**
@@ -766,8 +766,8 @@ public final class TorrentStatus {
         return ts.get_seeding_duration();
     }
 
-    private static long time2millis(int time) {
-        return ((long) time) * 1000;
+    private static long time2millis(long time) {
+        return time * 1000;
     }
 
     /**

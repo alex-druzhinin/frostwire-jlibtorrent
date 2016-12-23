@@ -143,6 +143,14 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_num_pieces(swigCPtr, this);
   }
 
+  public int last_piece() {
+    return libtorrent_jni.torrent_info_last_piece(swigCPtr, this);
+  }
+
+  public int end_piece() {
+    return libtorrent_jni.torrent_info_end_piece(swigCPtr, this);
+  }
+
   public sha1_hash info_hash() {
     return new sha1_hash(libtorrent_jni.torrent_info_info_hash(swigCPtr, this), false);
   }
@@ -195,7 +203,7 @@ public class torrent_info {
     return libtorrent_jni.torrent_info_name(swigCPtr, this);
   }
 
-  public int creation_date() {
+  public long creation_date() {
     return libtorrent_jni.torrent_info_creation_date(swigCPtr, this);
   }
 
