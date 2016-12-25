@@ -304,11 +304,10 @@ before_deploy:
   - cd ../..
 
 deploy:
-  provider: s3
-  access_key_id: $S3_ACCESS_KEY
-  secret_access_key: $S3_SECRET_KEY
-  bucket: $S3_BUCKET
+  provider: releases
   skip_cleanup: true
-  local_dir: swig/bin
+  api_key:
+    secure: Z3YJbwk9WigvlE/g0dY2aGC4TXOYQj0q5kqiovASikHf9BriJVwdE3d3tbjP90a+wOJjOqOkjw5MtDeQ/z/HwUr0WoP8GyoJXjbNjfk+DRy0SvViq+sxJ2Y0ToOunXrlxsJB0ui0goA1H+BZ8NW5+6kdQhh6hDo5UTMqZxeofMNwlrX7vATPHWfup6I3tSLY/CLiapyXyu0twkT6h0FqUFSdY6tqno5W0o9D50L3jTfo+Rh4pLA1TbwGIwhDUpYsKIo54hg7HQEQHVe3ec6i9klRywwegfSgfaD+XB/DDjM9FOG6Bl2mfhvXGxtX/wrZ66PFbWhI1ULCPN1Sy4q3JcPMMuBsYDuTFYHNsovngHI6oJfBkZnr3dzrA57AixYSEkzXTWvZtiwoDmwSAdIJzL+hzqSIIRvqJbjZ/ba/TYIp40XMrJDCcP+p8EeWdvxUZNh+Ga+TJynWiTLM37SHbo+cXa3ItOUVyb/C/PdkFGYnVUB+eTLlGv4RjHddo9wimWPb3yi/Xvi4bBfqhaUIXFozPOLCbZmnSWmSirc8syY0VecXdfqmg9+7COTzMZEzcEsz8VapjjcdMhkMSnqHmoGfTDTBZtaGNTFnpMG+QxBTOehhycaUjoO1hwx97ZseyMOxvbt/w/czFKPbXTgnHv+n8Rb58MABdgxIDGjaMBM=
+  file: swig/bin/release/linux/arm/libjlibtorrent.so
   on:
-    all_branches: true
+    repo: gaivoronsky/frostwire-jlibtorrent
