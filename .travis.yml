@@ -34,7 +34,7 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/alex-druzhinin/libtorrent
+  - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
   - git checkout master
   - cd ..
@@ -201,8 +201,8 @@ script:
   - cd $OPENSSL_SOURCE
   - $run_openssl_configure
   - echo "Compiling openssl...(remove &> /dev/null to see output)"
-  - make
-  - make install
+  - make &> /dev/null
+  - make install &> /dev/null
   - cd ..
   - export OPENSSL_ROOT=$PWD/openssl
 
