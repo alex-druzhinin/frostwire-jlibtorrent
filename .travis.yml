@@ -37,6 +37,7 @@ before_install:
   - git clone https://github.com/aldenml/libtorrent
   - cd libtorrent
   - git checkout master
+  - sed -i 's/ret.udp_sock->set_force_proxy(m_settings.get_bool(settings_pack::force_proxy));/ret.udp_sock->set_force_proxy(m_settings.get_bool(settings_pack::force_proxy));ret.udp_sock->set_proxy_settings(proxy());/g' src/session_impl.cpp
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
 
