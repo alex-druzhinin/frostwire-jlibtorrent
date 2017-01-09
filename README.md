@@ -28,8 +28,8 @@ For examples look at https://github.com/frostwire/frostwire-jlibtorrent/tree/mas
 
 Architectures supported:
 
-- Android (armeabi-v7a, arm64-v8a)
-- Linux (x86, x86_64, armhf, arm64)
+- Android (armeabi-v7a, arm64-v8a, x86, x86_64)
+- Linux (x86, x86_64)
 - Windows (x86, x86_64)
 - Mac OS X (x86_64)
 
@@ -87,6 +87,13 @@ $ git checkout master
 - When finished, check your s3 bucket for the binaries.
 - To trigger a new build, just make a change or merge new changes from
  the stable branch, commit and push.
+
+Projects using jLibtorrent
+==========================
+- [FrostWire](http://www.frostwire.com) (both desktop and android editions)
+- [TorrentStream-Android](https://github.com/mianharisali/TorrentStream-Android)
+- [TorrentTunes-Client](https://github.com/dessalines/torrenttunes-client)
+- [LibreTorrent](https://github.com/proninyaroslav/libretorrent)
 
 License
 ========
