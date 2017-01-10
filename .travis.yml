@@ -30,7 +30,7 @@ before_install:
       sed -i 's/MessageBox.*//g' $OPENSSL_SOURCE/crypto/cryptlib.c;
     fi
 
-# libtorrent: download and checkout revision
+# libtorrent: download and checkout  revision
   - git clone https://github.com/alex-druzhinin/libtorrent
   - cd libtorrent
   - git checkout master
