@@ -4,9 +4,6 @@ matrix:
   include:
     - dist: trusty
       env: os_build=windows os_arch=x86
-    - os: osx
-      osx_image: xcode8.2
-      env: os_build=macosx os_arch=x86_64
 
 branches:
   only:
@@ -34,9 +31,9 @@ before_install:
     fi
 
 # libtorrent: download and checkout revision
-  - git clone https://github.com/aldenml/libtorrent
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
-  - git checkout master
+  - git checkout d1ea80c2c337625e5aad2f0e1c7ef389a45af6a4
   - sed -i 's/ret.udp_sock->set_force_proxy(m_settings.get_bool(settings_pack::force_proxy));/ret.udp_sock->set_force_proxy(m_settings.get_bool(settings_pack::force_proxy));ret.udp_sock->set_proxy_settings(proxy());/g' src/session_impl.cpp
   - cd ..
   - export LIBTORRENT_ROOT=$PWD/libtorrent
