@@ -31,7 +31,7 @@ before_install:
     fi
 
 # libtorrent: download and checkout  revision
-  - git clone https://github.com/alex-druzhinin/libtorrent
+  - git clone https://github.com/arvidn/libtorrent
   - cd libtorrent
   - git checkout master
   - cd ..
